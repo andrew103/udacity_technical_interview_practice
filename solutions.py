@@ -91,5 +91,11 @@ print("================= QUESTION 4 =================")
 print("")
 print("================= QUESTION 5 =================")
 #============================ QUESTION_5 ======================================
+class Node(object):
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
+def question5(root, m):
+    pass
 #============================ QUESTION_5 ======================================
