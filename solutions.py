@@ -90,7 +90,12 @@ def create_tree(path, graph_in):
     filtered = graph_in
     for node in path:
         for edge in filtered[node]:
-            
+            if path.index(node) == 0 and path[index(node)+1] != edge[0]:
+                filtered[node].pop(index(edge))
+            elif path.index(node) == len(path)-1 and path[index(node)-1] != edge[0]:
+                filtered[node].pop(index(edge))
+            elif path[index(node)-1] != edge[0] and path[index(node)+1] != edge[0]:
+                filtered[node].pop(index(edge))
 
     return filtered
 
