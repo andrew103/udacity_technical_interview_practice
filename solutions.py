@@ -86,12 +86,45 @@ G = {'A': [('B', 3), ('C', 2), ('D', 4)],
      'C': [('A', 2), ('B', 5), ('D', 1)],
      'D': [('A', 4), ('B', 7), ('C', 1)]}
 
-def question3(G):
+def create_tree(path, graph_in):
+    pass
+
+
+def lightest_edge(edges):
+    lightest = None
+    for edge in edges:
+        if lightest == None or edge[1] < lightest[1]:
+            lightest = edge
+
+    return edges.index(edge)
+
+
+def question3(graph):
+    result = graph
+    start = result[0]
+
     visited = []
-    start = G[0]
     visited.append(start)
 
-    #Begin search
+    fin_weight = None
+    ideal_visited = []
+
+    while len(result[start]) != 0 and len(visited) == len(result):
+        if len(visited) == 1:
+            cur_node = result[start].pop(lightest_edge(result[start]))
+            visited.append(cur_node[0])
+            cur_weight = cur_node[1]
+        elif len(visited) == len(result):
+            if fin_weight == None or cur_weight < fin_weight:
+                fin_weight = cur_weight
+                ideal_visited = visited
+
+            visited = []
+            visited.append(start)
+        else:
+            pass
+
+    return create_tree(visited, graph)
 
 # print(question3(G))
 #============================ END QUESTION_3 ======================================
