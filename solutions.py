@@ -111,7 +111,7 @@ def lightest_edge(edges):
 
 def question3(graph):
     result = graph
-    start = result[0]
+    start = result.keys()[0]
 
     visited = []
     visited.append(start)
@@ -149,7 +149,7 @@ def question3(graph):
 
     return create_tree(ideal_visited, graph)
 
-# print(question3(G))
+print(question3(G))
 #============================ END QUESTION_3 ======================================
 print("")
 print("================= QUESTION 4 =================")
