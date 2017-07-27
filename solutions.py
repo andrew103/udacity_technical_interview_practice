@@ -81,7 +81,19 @@ print(question2("Step on no petsSagasRepaper"))
 print("")
 print("================= QUESTION 3 =================")
 #============================ BEGIN QUESTION_3 ======================================
+G = {'A': [('B', 3), ('C', 2), ('D', 4)],
+     'B': [('A', 3), ('C', 5), ('D', 7)],
+     'C': [('A', 2), ('B', 5), ('D', 1)],
+     'D': [('A', 4), ('B', 7), ('C', 1)]}
 
+def question3(G):
+    visited = []
+    start = G[0]
+    visited.append(start)
+
+    #Begin search
+
+# print(question3(G))
 #============================ END QUESTION_3 ======================================
 print("")
 print("================= QUESTION 4 =================")
