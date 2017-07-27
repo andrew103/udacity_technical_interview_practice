@@ -1,3 +1,5 @@
+import copy
+
 print("================= QUESTION 1 =================")
 #============================ BEGIN QUESTION_1 ======================================
 def question1(s, t):
@@ -87,14 +89,14 @@ G = {'A': [('B', 3), ('C', 2), ('D', 4)],
      'D': [('A', 4), ('B', 7), ('C', 1)]}
 
 def create_tree(path, graph_in):
-    filtered = graph_in
+    filtered = copy.deepcopy(graph_in)
     for node in path:
-        for edge in filtered[node]:
-            if path.index(node) == 0 and path[index(node)+1] != edge[0]:
+        for edge in graph_in[node]:
+            if path.index(node) == 0 and path[path.index(node)+1] != edge[0]:
                 filtered[node].pop(filtered[node].index(edge))
-            elif path.index(node) == len(path)-1 and path[index(node)-1] != edge[0]:
+            elif path.index(node) == len(path)-1 and path[path.index(node)-1] != edge[0]:
                 filtered[node].pop(filtered[node].index(edge))
-            elif path[index(node)-1] != edge[0] and path[index(node)+1] != edge[0]:
+            elif path[path.index(node)-1] != edge[0] and path[path.index(node)+1] != edge[0]:
                 filtered[node].pop(filtered[node].index(edge))
 
     return filtered
@@ -106,11 +108,17 @@ def lightest_edge(edges, visited):
         if (lightest == None or edge[1] < lightest[1]) and (edge[0] not in visited):
             lightest = edge
 
-    return edges.index(lightest)
+    if lightest:
+        return edges.index(lightest)
+
+    return None
 
 
 def question3(graph):
-    result = graph
+    if not graph or graph == None:
+        return None
+
+    result = copy.deepcopy(graph)
     start = list(result.keys())[0]
 
     visited = []
@@ -120,9 +128,9 @@ def question3(graph):
     ideal_visited = []
 
     while len(result[start]) != 0: #and len(visited) != len(result):
-        print(len(result[start]))
         if len(visited) == 1:
             edge = result[start][lightest_edge(result[start], visited)]
+            prev_node = start
             cur_node = edge[0]
             visited.append(cur_node)
             cur_weight = edge[1]
@@ -143,7 +151,7 @@ def question3(graph):
                 cur_weight += edge[1]
             else:
                 result[prev_node].pop(result[prev_node].index(edge))
-                result[cur_node] = graph[cur_node]
+                result[cur_node] = copy.deepcopy(graph[cur_node])
 
                 visited = []
                 visited.append(start)
@@ -151,6 +159,7 @@ def question3(graph):
     return create_tree(ideal_visited, graph)
 
 print(question3(G))
+print(question3({}))
 #============================ END QUESTION_3 ======================================
 print("")
 print("================= QUESTION 4 =================")
