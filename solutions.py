@@ -88,6 +88,9 @@ G = {'A': [('B', 3), ('C', 2), ('D', 4)],
 
 def create_tree(path, graph_in):
     filtered = graph_in
+    for node in path:
+        for edge in filtered[node]:
+            
 
     return filtered
 
@@ -98,7 +101,7 @@ def lightest_edge(edges):
         if (lightest == None or edge[1] < lightest[1]) and (edge[0] not in visited):
             lightest = edge
 
-    return edges.index(edge)
+    return edges.index(lightest)
 
 
 def question3(graph):
@@ -113,7 +116,7 @@ def question3(graph):
 
     while len(result[start]) != 0 and len(visited) == len(result):
         if len(visited) == 1:
-            edge = result[start].pop(lightest_edge(result[start], visited))
+            edge = result[start][lightest_edge(result[start], visited)]
             cur_node = edge[0]
             visited.append(cur_node)
             cur_weight = edge[1]
@@ -122,16 +125,24 @@ def question3(graph):
                 fin_weight = cur_weight
                 ideal_visited = visited
 
+            result[prev_node].pop(index(edge))
             visited = []
             visited.append(start)
         else:
-            edge = result[cur_node][lightest_edge(result[cur_node], visited)]
-            cur_node = edge[0]
-            visited.append(cur_node)
-            cur_weight += edge[1]
+            if lightest_edge(result[cur_node], visited) != None:
+                edge = result[cur_node][lightest_edge(result[cur_node], visited)]
+                prev_node = cur_node
+                cur_node = edge[0]
+                visited.append(cur_node)
+                cur_weight += edge[1]
+            else:
+                result[prev_node].pop(index(edge))
+                result[cur_node] = graph[cur_node]
 
+                visited = []
+                visited.append(start)
 
-    return create_tree(visited, graph)
+    return create_tree(ideal_visited, graph)
 
 # print(question3(G))
 #============================ END QUESTION_3 ======================================
