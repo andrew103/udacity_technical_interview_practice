@@ -111,7 +111,7 @@ def lightest_edge(edges):
 
 def question3(graph):
     result = graph
-    start = result.keys()[0]
+    start = list(result.keys())[0]
 
     visited = []
     visited.append(start)
