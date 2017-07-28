@@ -36,6 +36,14 @@ represents each edge attributed to it. The space efficiency for this program
 would be O(n*m) since you have a loop within another loop in a couple cases.
 
 =============================== QUESTION_4 ====================================
-
+Since building a tree using Node objects makes traversing and evaluating their
+position and children easier, I implemented that approach. In this way, I could
+easily go through and establish checks for my nodes. Also, by starting my
+search from the root node and making my way down, the time efficiency of the
+actual searching part of the program becomes O(log(n)). However, with the
+helper functions in place, the time efficiency becomes O(n*m) since one of them
+uses a loop within another loop for creating the tree given a matrix. The space
+efficiency of the program would be O(n) since only a series of lists are being
+produced.
 
 =============================== QUESTION_5 ====================================

@@ -242,7 +242,7 @@ def find_orphans(nodes):
 
 
 def question4(T, r, n1, n2):
-    if T == None or r == None or n1 == None or n2 == None:
+    if not (T or r or n1 or n2):
         return None
     elif n1 < 0 or n1 >= len(T) or n2 < 0 or n2 >= len(T):
         return None
