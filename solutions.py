@@ -268,9 +268,12 @@ def create_tree(matrix):
     node_list = []
     node_index = 0
     for node in matrix:
+        # create a Node object for each entry in the matrix
         cur_node = Node(node_index)
         node_list.append(cur_node)
         child_index = 0
+        # check to see if each entry has children. if so, then add the data to
+        # the corresponding Node object
         for child in node:
             if child == 1:
                 if child_index <= node_index:
@@ -285,14 +288,22 @@ def create_tree(matrix):
 
 
 def find_orphans(nodes):
+    """
+    Takes in a list of Node objects and finds if there are any orphan nodes.
+    Orphans are defined as not having any parent nodes and are not the root
+    node.
+    """
     children = []
     orphan_list = []
+    # if the node isn't an orphan, append its value to children
     for node in nodes:
         if node.left != None or node.right != None:
             children.append(node.left)
             children.append(node.right)
             children.append(node.data)
 
+    # find which node values don't exist in children and append them to
+    # orphan_list
     for node in nodes:
         if node.data not in children:
             orphan_list.append(node.data)
@@ -301,6 +312,10 @@ def find_orphans(nodes):
 
 
 def question4(T, r, n1, n2):
+    """
+    Takes in a matrix, root value, and two endpoints in order to find the least
+    common ancestor between those two endpoints
+    """
     if not (T or r or n1 or n2):
         return None
     elif n1 < 0 or n1 >= len(T) or n2 < 0 or n2 >= len(T):
@@ -308,6 +323,7 @@ def question4(T, r, n1, n2):
     elif n1 == n2:
         return n1
 
+    # create the tree and find any orphans that may exist
     nodes = create_tree(T)
     orphans = find_orphans(nodes)
 
@@ -316,6 +332,7 @@ def question4(T, r, n1, n2):
 
     cur_node = r
 
+    # traverse the tree to find the least common ancestor of the endpoints
     while (cur_node <= n1 and cur_node <= n2) or (cur_node > n1 and cur_node > n2):
         if cur_node == None or (cur_node in orphans):
             return None
@@ -330,21 +347,33 @@ def question4(T, r, n1, n2):
 
 
 print(question4(matrix_1, 3, 1, 4))
+# Expected result: 3
 print(question4(matrix_1, 3, 2, 4))
+# Expected result: None
 print(question4(matrix_1, 3, 0, 1))
+# Expected result: 0
 print(question4(matrix_1, 3, 1, 1))
+# Expected result: 1
 print(question4(matrix_2, 6, 0, 3))
+# Expected result: 2
 #============================ END QUESTION_4 ======================================
 print("")
 print("================= QUESTION 5 =================")
 #============================ BEGIN QUESTION_5 ======================================
 class Node(object):
+    """
+    Node instance that provides a value and a pointer to the next Node object
+    in a series.
+    """
     def __init__(self, data):
         self.data = data
         self.next = None
 
 
 def populate_linked(main_list):
+    """
+    Helper function to create the linked list for use in the main function
+    """
     linked = []
     for value in main_list:
         node = Node(value)
@@ -361,11 +390,16 @@ linked_list = populate_linked(main_list)
 root = linked_list[0]
 
 def question5(ll, m):
+    """
+    Creates an ordered list of values taken from the linked list, then indexes
+    that list in order to find the desired value and return it.
+    """
     if ll == None or m > len(linked_list):
         return None
 
     ordered_list = []
     cur_node = ll
+    # traverses the linked list to create an ordered list of values
     while True:
         ordered_list.append(cur_node.data)
         if cur_node.next == None:
@@ -376,7 +410,11 @@ def question5(ll, m):
     return ordered_list[-m]
 
 print(question5(root, 6))
+# Expected Value: 1
 print(question5(None, 6))
+# Expected Value: None
 print(question5(root, 11))
+# Expected Value: 8
 print(question5(root, 312))
+# Expected Value: None
 #============================ END QUESTION_5 ======================================
