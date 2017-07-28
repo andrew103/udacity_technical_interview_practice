@@ -26,7 +26,14 @@ palindromes found to find the longest. With some added work, this could also be
 reduced to O(n*m) efficiency.
 
 =============================== QUESTION_3 ====================================
-
+I used the methods of popping edges from nodes to distinguish visited nodes
+since it seemed like one of the more imaginable ways to accomplish the task.
+Meaning, its a process that at least I can visualize in my head and given that
+what's given is an undirected graph, you pretty much have to search through
+every possible combination. Given this constraint, I believe that time
+efficiency for this problem is O(n^m) where n represents each node and m
+represents each edge attributed to it. The space efficiency for this program
+would be O(n*m) since you have a loop within another loop in a couple cases.
 
 =============================== QUESTION_4 ====================================
 

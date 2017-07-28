@@ -139,7 +139,7 @@ def question3(graph):
     fin_weight = None
     ideal_visited = []
 
-    while len(result[start]) != 0: #and len(visited) != len(result):
+    while len(result[start]) != 0:
         if len(visited) == 1:
             edge = result[start][lightest_edge(result[start], visited)]
             prev_node = start
