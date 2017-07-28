@@ -13,6 +13,22 @@ one string within the loop of the other. The memory efficiency is also O(n*m)
 since you're working within two lists of the string elements.
 
 =============================== QUESTION_2 ====================================
+I feel that the way in which I solved this problem is one of the more space
+efficient methods available, although maybe not the most time efficient. It
+felt easy and simple enough to go through the string once and find all the
+palindromes in that one run. This way, the space efficiency is limited to O(n),
+based on the number of palindromes in the string after searching. With a little
+more work however, it could be reduced to O(1) space efficiency. The time
+efficiency is O(a*n*m). "n" is representative of the length of the string and
+the process of iterating through it. "m" represents looping through a section
+of the string to extract a palindrome. "a" represents looping through the
+palindromes found to find the longest. With some added work, this could also be
+reduced to O(n*m) efficiency.
+
 =============================== QUESTION_3 ====================================
+
+
 =============================== QUESTION_4 ====================================
+
+
 =============================== QUESTION_5 ====================================
