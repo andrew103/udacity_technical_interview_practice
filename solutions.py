@@ -238,10 +238,14 @@ def question4(T, r, n1, n2):
 
     nodes = create_tree(T)
     orphans = find_orphans(nodes)
+
+    if n1 in orphans or n2 in orphans:
+        return None
+
     cur_node = r
 
     while (cur_node <= n1 and cur_node <= n2) or (cur_node > n1 and cur_node > n2):
-        if cur_node == None or cur_node in orphans:
+        if cur_node == None or (cur_node in orphans):
             return None
         elif cur_node == n1 or cur_node == n2:
             return cur_node
