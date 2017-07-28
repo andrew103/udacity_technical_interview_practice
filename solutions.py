@@ -302,7 +302,7 @@ linked_list = populate_linked(main_list)
 root = linked_list[0]
 
 def question5(ll, m):
-    if ll == None or m >= len(linked_list):
+    if ll == None or m > len(linked_list):
         return None
 
     ordered_list = []
@@ -318,5 +318,6 @@ def question5(ll, m):
 
 print(question5(root, 6))
 print(question5(None, 6))
+print(question5(root, 11))
 print(question5(root, 312))
 #============================ END QUESTION_5 ======================================
