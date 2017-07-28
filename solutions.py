@@ -284,6 +284,39 @@ class Node(object):
         self.data = data
         self.next = None
 
+
+def populate_linked(main_list):
+    linked = []
+    for value in main_list:
+        node = Node(value)
+        linked.append(node)
+
+    for node in linked:
+        if linked.index(node) != len(linked)-1:
+            node.next = linked[linked.index(node)+1]
+
+    return linked
+
+main_list = [8,25,45,69,2,1,8,6,2,36,45]
+linked_list = populate_linked(main_list)
+root = linked_list[0]
+
 def question5(ll, m):
-    pass
+    if ll == None or m >= len(linked_list):
+        return None
+
+    ordered_list = []
+    cur_node = ll
+    while True:
+        ordered_list.append(cur_node.data)
+        if cur_node.next == None:
+            break
+        else:
+            cur_node = cur_node.next
+
+    return ordered_list[-m]
+
+print(question5(root, 6))
+print(question5(None, 6))
+print(question5(root, 312))
 #============================ END QUESTION_5 ======================================
