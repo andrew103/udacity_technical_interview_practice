@@ -47,3 +47,9 @@ efficiency of the program would be O(n) since only a series of lists are being
 produced.
 
 =============================== QUESTION_5 ====================================
+I chose this approach to solving the problem since when the linked list is
+redrawn into an ordered list consisting of only the data entries, it becomes
+much easier to then identify a value provided an index (such as mth number from
+the end). The time efficiency of this program is O(n) since it only loops
+through the linked list nodes. The space efficiency is also O(n) since a list
+is formed with a length dependent on the number of nodes in the linked list.

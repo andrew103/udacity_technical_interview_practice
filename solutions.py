@@ -31,6 +31,7 @@ print(question1("mississippi", "misses"))
 # Expected result: False
 print(question1("people", "PEPE"))
 # Expected result: True
+print(question1(None))
 #============================ END QUESTION_1 ======================================
 print("")
 print("================= QUESTION 2 =================")
@@ -79,6 +80,7 @@ print(question2(""))
 # Expected result: None
 print(question2("Step on no petsSagasRepaper"))
 # Expected result: steponnopets
+print(question2(None))
 #============================ END QUESTION_2 ======================================
 print("")
 print("================= QUESTION 3 =================")
@@ -173,6 +175,7 @@ def question3(graph):
 print(question3(G1))
 print(question3({}))
 print(question3(G2))
+print(question3(None))
 #============================ END QUESTION_3 ======================================
 print("")
 print("================= QUESTION 4 =================")
