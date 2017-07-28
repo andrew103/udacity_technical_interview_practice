@@ -207,13 +207,23 @@ def create_tree(matrix):
 def question4(T, r, n1, n2):
     if T == None or r == None or n1 == None or n2 == None:
         return None
-    if n1 < 0 or n1 >= len(T) or n2 < 0 or n2 >= len(T):
+    elif n1 < 0 or n1 >= len(T) or n2 < 0 or n2 >= len(T):
         return None
+    elif n1 == n2:
+        return n1
 
     nodes = create_tree(T)
+    cur_node = r
 
+    while (cur_node <= n1 and cur_node <= n2) or (cur_node > n1 and cur_node > n2):
+        if cur_node == None:
+            return None
+        elif cur_node <= n1 and cur_node <= n2:
+            cur_node = nodes[cur_node].right
+        elif cur_node > n1 and cur_node > n2:
+            cur_node = nodes[cur_node].left
 
-    return None
+    return cur_node
 
 
 
