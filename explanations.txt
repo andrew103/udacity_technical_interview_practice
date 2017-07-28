@@ -1,0 +1,18 @@
+=============================== QUESTION_1 ====================================
+I decided to employ the method of popping characters out of lists of each
+string since it felt like one of the more straightforward solutions to this
+problem. I based this off the concept that an anagram of a word is formed by
+using the letters within the original word and doesn't necessarily need to
+follow the order of the letters in the original word. Given this idea, I
+figured that if I go through each string and pop out the matches till either
+there's not a match or all the letters in the anagram list have been popped.
+In doing this, I not only find if the string is an anagram, but I also account
+for duplicates in letters based on the rule that each letter can only be used
+once. With this configuration, the runtime is O(n*m) since you're looping through
+one string within the loop of the other. The memory efficiency is also O(n*m)
+since you're working within two lists of the string elements.
+
+=============================== QUESTION_2 ====================================
+=============================== QUESTION_3 ====================================
+=============================== QUESTION_4 ====================================
+=============================== QUESTION_5 ====================================
