@@ -31,12 +31,14 @@ print(question1("mississippi", "misses"))
 # Expected result: False
 print(question1("people", "PEPE"))
 # Expected result: True
-print(question1(None))
 #============================ END QUESTION_1 ======================================
 print("")
 print("================= QUESTION 2 =================")
 #============================ BEGIN QUESTION_2 ======================================
 def longest_palindrome(pal_list):
+    """
+    Given a list of palindromes, finds the longest one and returns it
+    """
     longest = ""
     for palindrome in pal_list:
         if len(palindrome) > len(longest):
@@ -45,21 +47,32 @@ def longest_palindrome(pal_list):
     return longest
 
 def find_palindrome(string, lower, upper):
+    """
+    Provided the string and starting points, finds the palindrome within the
+    string by fanning out from the starting point
+    """
     distance = 1
     while string[lower] == string[upper]:
         upper += 1
         lower -= 1
         if upper >= len(string) or lower <= -1:
-            break;
+            break
 
     return string[lower+1:upper]
 
 def question2(a):
+    """
+    Takes in a string and returns the longest palindrome found within it
+    """
     palindromes = []
     if a:
+        # remove all the spaces within the string and convert to lowercase
+        # to avoid errors
         a = a.replace(" ", "")
         a = a.lower()
         for pivot in range(len(a)):
+            # if a pivot matches a neighboring letter, begin the palindrome
+            # finding process
             try:
                 if a[pivot - 1] == a[pivot + 1]:
                     palindromes.append(find_palindrome(a, pivot, pivot))
@@ -80,7 +93,6 @@ print(question2(""))
 # Expected result: None
 print(question2("Step on no petsSagasRepaper"))
 # Expected result: steponnopets
-print(question2(None))
 #============================ END QUESTION_2 ======================================
 print("")
 print("================= QUESTION 3 =================")
@@ -103,9 +115,13 @@ G2 = {
 }
 
 def create_tree(path, graph_in):
+    """
+    Uses the idealized path of visited nodes to construct a new filtered graph
+    """
     filtered = copy.deepcopy(graph_in)
     for node in path:
         for edge in graph_in[node]:
+            # removes all unnecessary edges that aren't part of the ideal path
             if path.index(node) == 0 and path[path.index(node)+1] != edge[0]:
                 filtered[node].pop(filtered[node].index(edge))
             elif path.index(node) == len(path)-1 and path[path.index(node)-1] != edge[0]:
@@ -117,6 +133,9 @@ def create_tree(path, graph_in):
 
 
 def lightest_edge(edges, visited):
+    """
+    Provided a list of available edges, returns the lightest, non-visited edge
+    """
     lightest = None
     for edge in edges:
         if (lightest == None or edge[1] < lightest[1]) and (edge[0] not in visited):
@@ -129,9 +148,14 @@ def lightest_edge(edges, visited):
 
 
 def question3(graph):
+    """
+    Given a complete undirected graph, finds the ideal path to visit all nodes
+    while maintaining the least possible total weight
+    """
     if not graph or graph == None:
         return None
 
+    # duplicates the graph rather than creating a reference to it
     result = copy.deepcopy(graph)
     start = list(result.keys())[0]
 
@@ -143,12 +167,15 @@ def question3(graph):
 
     while len(result[start]) != 0:
         if len(visited) == 1:
+            # initializes the search process starting from a "pivot" node
             edge = result[start][lightest_edge(result[start], visited)]
             prev_node = start
             cur_node = edge[0]
             visited.append(cur_node)
             cur_weight = edge[1]
         elif len(visited) == len(result):
+            # when all nodes in the graph have been visited, check if an ideal
+            # path was created then reset for another run
             if fin_weight == None or cur_weight < fin_weight:
                 fin_weight = cur_weight
                 ideal_visited = visited
@@ -158,12 +185,16 @@ def question3(graph):
             visited.append(start)
         else:
             if lightest_edge(result[cur_node], visited) != None:
+                # a non-visited node is found so record it and continue along
+                # this path
                 edge = result[cur_node][lightest_edge(result[cur_node], visited)]
                 prev_node = cur_node
                 cur_node = edge[0]
                 visited.append(cur_node)
                 cur_weight += edge[1]
             else:
+                # this path doesn't visit all nodes so reset and start a new
+                # path to test
                 result[prev_node].pop(result[prev_node].index(edge))
                 result[cur_node] = copy.deepcopy(graph[cur_node])
 
@@ -173,9 +204,26 @@ def question3(graph):
     return create_tree(ideal_visited, graph)
 
 print(question3(G1))
+# Expected result: {
+# 'A': [('B', 3)],
+# 'B': [('A', 3), ('C', 5)],
+# 'C': [('B', 5), ('D', 1)],
+# 'D': [('C', 1)]
+# }
 print(question3({}))
+# Expected result: None
 print(question3(G2))
-print(question3(None))
+# Expected result: {
+# 'A': [('D', 2)],
+# 'B': [('C', 8), ('H', 9)],
+# 'C': [('B', 8), ('F', 1)],
+# 'D': [('A', 2), ('I', 10)],
+# 'E': [('G', 3)],
+# 'F': [('C', 1), ('G', 5)],
+# 'G': [('E', 3), ('F', 5)],
+# 'H': [('B', 9), ('I', 4)],
+# 'I': [('D', 10), ('H', 4)]
+# }
 #============================ END QUESTION_3 ======================================
 print("")
 print("================= QUESTION 4 =================")
@@ -202,6 +250,10 @@ matrix_2 = [
 ]
 
 class Node(object):
+    """
+    Node instance that defines a value and children nodes for a specific node
+    object
+    """
     def __init__(self, data):
         self.data = data
         self.left = None
@@ -209,6 +261,10 @@ class Node(object):
 
 
 def create_tree(matrix):
+    """
+    Takes a given matrix and builds a tree with Node objects. Returns a list of
+    those nodes
+    """
     node_list = []
     node_index = 0
     for node in matrix:
