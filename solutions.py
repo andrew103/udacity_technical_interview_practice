@@ -177,6 +177,14 @@ print(question3(G2))
 print("")
 print("================= QUESTION 4 =================")
 #============================ BEGIN QUESTION_4 ======================================
+matrix_1 = [
+    [0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 1],
+    [0, 0, 0, 0, 0]
+]
+
 class Node(object):
     def __init__(self, data):
         self.data = data
@@ -204,6 +212,22 @@ def create_tree(matrix):
     return node_list
 
 
+def find_orphans(nodes):
+    children = []
+    orphan_list = []
+    for node in nodes:
+        if node.left != None or node.right != None:
+            children.append(node.left)
+            children.append(node.right)
+            children.append(node.data)
+
+    for node in nodes:
+        if node.data not in children:
+            orphan_list.append(node.data)
+
+    return orphan_list
+
+
 def question4(T, r, n1, n2):
     if T == None or r == None or n1 == None or n2 == None:
         return None
@@ -213,11 +237,14 @@ def question4(T, r, n1, n2):
         return n1
 
     nodes = create_tree(T)
+    orphans = find_orphans(nodes)
     cur_node = r
 
     while (cur_node <= n1 and cur_node <= n2) or (cur_node > n1 and cur_node > n2):
-        if cur_node == None:
+        if cur_node == None or cur_node in orphans:
             return None
+        elif cur_node == n1 or cur_node == n2:
+            return cur_node
         elif cur_node <= n1 and cur_node <= n2:
             cur_node = nodes[cur_node].right
         elif cur_node > n1 and cur_node > n2:
@@ -226,16 +253,10 @@ def question4(T, r, n1, n2):
     return cur_node
 
 
-
-
-print(question4([[0, 1, 0, 0, 0],
-                 [0, 0, 0, 0, 0],
-                 [0, 0, 0, 0, 0],
-                 [1, 0, 0, 0, 1],
-                 [0, 0, 0, 0, 0]],
-                 3,
-                 1,
-                 4))
+print(question4(matrix_1, 3, 1, 4))
+print(question4(matrix_1, 3, 2, 4))
+print(question4(matrix_1, 3, 0, 1))
+print(question4(matrix_1, 3, 1, 1))
 #============================ END QUESTION_4 ======================================
 print("")
 print("================= QUESTION 5 =================")
