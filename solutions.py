@@ -177,7 +177,55 @@ print(question3(G2))
 print("")
 print("================= QUESTION 4 =================")
 #============================ BEGIN QUESTION_4 ======================================
+class Node(object):
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
 
+
+def create_tree(matrix):
+    node_list = []
+    node_index = 0
+    for node in matrix:
+        cur_node = Node(node_index)
+        node_list.append(cur_node)
+        child_index = 0
+        for child in node:
+            if child == 1:
+                if child_index <= node_index:
+                    cur_node.left = child_index
+                elif child_index > node_index:
+                    cur_node.right = child_index
+
+            child_index += 1
+        node_index += 1
+
+    return node_list
+
+
+def question4(T, r, n1, n2):
+    if T == None or r == None or n1 == None or n2 == None:
+        return None
+    if n1 < 0 or n1 >= len(T) or n2 < 0 or n2 >= len(T):
+        return None
+
+    nodes = create_tree(T)
+
+
+    return None
+
+
+
+
+print(question4([[0, 1, 0, 0, 0],
+                 [0, 0, 0, 0, 0],
+                 [0, 0, 0, 0, 0],
+                 [1, 0, 0, 0, 1],
+                 [0, 0, 0, 0, 0]],
+                 3,
+                 1,
+                 4))
 #============================ END QUESTION_4 ======================================
 print("")
 print("================= QUESTION 5 =================")
@@ -187,6 +235,6 @@ class Node(object):
         self.data = data
         self.next = None
 
-def question5(root, m):
+def question5(ll, m):
     pass
 #============================ END QUESTION_5 ======================================
