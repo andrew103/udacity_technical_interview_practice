@@ -207,6 +207,12 @@ def create_edge_list(graph):
     edge_list = []
     nodes_visited = {}
 
+    for key in graph:
+        nodes_visited[key] = 0
+        for edge in graph[key]:
+            new_edge = (edge[1], edge[0], key)
+            edge_list.append(new_edge)
+
     return edge_list, nodes_visited
 
 
