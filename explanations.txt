@@ -26,14 +26,13 @@ palindromes found to find the longest. With some added work, this could also be
 reduced to O(n*m) efficiency.
 
 =============================== QUESTION_3 ====================================
-I used the methods of popping edges from nodes to distinguish visited nodes
-since it seemed like one of the more imaginable ways to accomplish the task.
-Meaning, its a process that at least I can visualize in my head and given that
-what's given is an undirected graph, you pretty much have to search through
-every possible combination. Given this constraint, I believe that time
-efficiency for this problem is O(n^m) where n represents each node and m
-represents each edge attributed to it. The space efficiency for this program
-would be O(n*m) since you have a loop within another loop in a couple cases.
+For this problem, I employed the concept of Kruskal's algorithm. Although not
+following it exactly, I implemented a similar form that is easier to
+visualize in my mind at least despite being longer than other programs that use
+Kruskal's algorithm. Time efficiency for this problem is O(n*m) since in the
+main program's loop, there is a call to a helper function that contains a loop.
+The space efficiency for this program would be O(n) since at any one time, a
+list or a number of separate lists of n components exist.
 
 =============================== QUESTION_4 ====================================
 Since building a tree using Node objects makes traversing and evaluating their
@@ -51,5 +50,5 @@ I chose this approach to solving the problem since when the linked list is
 redrawn into an ordered list consisting of only the data entries, it becomes
 much easier to then identify a value provided an index (such as mth number from
 the end). The time efficiency of this program is O(n) since it only loops
-through the linked list nodes. The space efficiency is also O(n) since a list
-is formed with a length dependent on the number of nodes in the linked list.
+through the linked list nodes. The space efficiency is O(1) since the program
+is simply iterating through a list.
