@@ -1,4 +1,5 @@
 import copy
+from collections import OrderedDict
 
 print("================= QUESTION 1 =================")
 #============================ BEGIN QUESTION_1 ======================================
@@ -218,14 +219,50 @@ def create_edge_list(graph):
 
 def convert_to_graph(edge_list):
     updated_graph = {}
+    sorted_graph = {}
 
     for edge in edge_list:
         updated_graph[edge[2]] = []
+        updated_graph[edge[1]] = []
 
     for edge in edge_list:
         updated_graph[edge[2]].append((edge[1], edge[0]))
+        updated_graph[edge[1]].append((edge[2], edge[0]))
 
-    return sorted(updated_graph)
+    for key in sorted(updated_graph):
+        sorted_graph[key] = updated_graph[key]
+
+    return sorted_graph
+
+
+def cycle_check(edge, paths):
+    if edge[1] in paths[edge[2]] or edge[2] in paths[edge[1]]:
+        return True
+    return False
+
+
+def repeat_check(edge, edge_list):
+    reverse_edge = (edge[0], edge[2], edge[1])
+    if reverse_edge in edge_list:
+        return True
+    return False
+
+
+def update_paths(paths, node1, node2):
+    n1 = copy.deepcopy(paths[node1])
+    n2 = copy.deepcopy(paths[node2])
+
+    for node in paths[node1]:
+        paths[node].extend(n2)
+    for node in paths[node2]:
+        paths[node].extend(n1)
+
+    paths[node1].extend(n2)
+    paths[node2].extend(n1)
+    paths[node1].append(node2)
+    paths[node2].append(node1)
+
+    return paths
 
 
 def question3(graph):
@@ -233,15 +270,28 @@ def question3(graph):
         return None
 
     edge_list, nodes_visited = create_edge_list(graph)
+    updated_edges = []
+
+    paths = {}
+    for edge in edge_list:
+        paths[edge[2]] = []
 
     for edge in edge_list:
+        is_cycle = cycle_check(edge, paths)
+        is_repeat = repeat_check(edge, updated_edges)
+        if len(updated_edges) == len(nodes_visited)-1 or is_cycle or is_repeat:
+            continue
         if nodes_visited[edge[1]] == 0 or nodes_visited[edge[2]] == 0:
             nodes_visited[edge[1]] = 1
             nodes_visited[edge[2]] = 1
-        else:
-            edge_list.pop(edge_list.index(edge))
 
-    return convert_to_graph(edge_list)
+            paths = update_paths(paths, edge[1], edge[2])
+            updated_edges.append(edge)
+        elif nodes_visited[edge[1]] == 1 and nodes_visited[edge[2]] == 1:
+            paths = update_paths(paths, edge[1], edge[2])
+            updated_edges.append(edge)
+
+    return convert_to_graph(updated_edges)
 
 
 print(question3(G1))
