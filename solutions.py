@@ -213,13 +213,20 @@ def create_edge_list(graph):
             new_edge = (edge[1], edge[0], key)
             edge_list.append(new_edge)
 
-    return edge_list, nodes_visited
+    return sorted(edge_list), nodes_visited
 
 
 def convert_to_graph(edge_list):
     updated_graph = {}
 
-    return updated_graph
+    for edge in edge_list:
+        updated_graph[edge[2]] = []
+
+    for edge in edge_list:
+        updated_graph[edge[2]].append((edge[1], edge[0]))
+
+
+    return sorted(updated_graph)
 
 
 def question3(graph):
