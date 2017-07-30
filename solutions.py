@@ -225,12 +225,21 @@ def convert_to_graph(edge_list):
     for edge in edge_list:
         updated_graph[edge[2]].append((edge[1], edge[0]))
 
-
     return sorted(updated_graph)
 
 
 def question3(graph):
+    if graph == {} or graph == None:
+        return None
+
     edge_list, nodes_visited = create_edge_list(graph)
+
+    for edge in edge_list:
+        if nodes_visited[edge[1]] == 0 or nodes_visited[edge[2]] == 0:
+            nodes_visited[edge[1]] = 1
+            nodes_visited[edge[2]] = 1
+        else:
+            edge_list.pop(edge_list.index(edge))
 
     return convert_to_graph(edge_list)
 
