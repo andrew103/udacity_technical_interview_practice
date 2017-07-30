@@ -116,6 +116,9 @@ G2 = {
 }
 
 def create_edge_list(graph):
+    """
+    Convert the input format to one that can be used with this program
+    """
     edge_list = []
     nodes_visited = {}
 
@@ -129,17 +132,23 @@ def create_edge_list(graph):
 
 
 def convert_to_graph(edge_list):
+    """
+    Convert the format back to a graph for display in the console
+    """
     updated_graph = {}
     sorted_graph = {}
 
+    # initalize a key mapped to an empty list
     for edge in edge_list:
         updated_graph[edge[2]] = []
         updated_graph[edge[1]] = []
 
+    # populate the list for each key
     for edge in edge_list:
         updated_graph[edge[2]].append((edge[1], edge[0]))
         updated_graph[edge[1]].append((edge[2], edge[0]))
 
+    # sort the dictionary alphabetically by key
     for key in sorted(updated_graph):
         sorted_graph[key] = updated_graph[key]
 
@@ -147,12 +156,18 @@ def convert_to_graph(edge_list):
 
 
 def cycle_check(edge, paths):
+    """
+    Checks is a cycle exists with the addition of a given edge
+    """
     if edge[1] in paths[edge[2]] or edge[2] in paths[edge[1]]:
         return True
     return False
 
 
 def repeat_check(edge, edge_list):
+    """
+    Checks if an edge is a repeat
+    """
     reverse_edge = (edge[0], edge[2], edge[1])
     if reverse_edge in edge_list:
         return True
@@ -160,6 +175,10 @@ def repeat_check(edge, edge_list):
 
 
 def update_paths(paths, node1, node2):
+    """
+    Updates the paths for each node. The path of each node includes all the
+    other nodes it's connected to
+    """
     n1 = copy.deepcopy(paths[node1])
     n2 = copy.deepcopy(paths[node2])
 
@@ -177,12 +196,17 @@ def update_paths(paths, node1, node2):
 
 
 def question3(graph):
+    """
+    Takes in a graph and outputs a graph with an idealized path that connects
+    all nodes in the graph with the least total weight
+    """
     if graph == {} or graph == None:
         return None
 
     edge_list, nodes_visited = create_edge_list(graph)
     updated_edges = []
 
+    # initalize the paths for each node
     paths = {}
     for edge in edge_list:
         paths[edge[2]] = []
@@ -192,7 +216,9 @@ def question3(graph):
         is_repeat = repeat_check(edge, updated_edges)
         if len(updated_edges) == len(nodes_visited)-1 or is_cycle or is_repeat:
             continue
+
         if nodes_visited[edge[1]] == 0 or nodes_visited[edge[2]] == 0:
+            # sets the status of each node in this operation to 1 for 'visited'
             nodes_visited[edge[1]] = 1
             nodes_visited[edge[2]] = 1
 
