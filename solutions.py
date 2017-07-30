@@ -204,15 +204,22 @@ G2 = {
 #     return create_tree(ideal_visited, graph)
 # ===========================================================END Q3 OLD CODE
 def create_edge_list(graph):
-    pass
+    edge_list = []
+    nodes_visited = {}
+
+    return edge_list, nodes_visited
 
 
 def convert_to_graph(edge_list):
-    pass
+    updated_graph = {}
+
+    return updated_graph
 
 
 def question3(graph):
-    pass
+    edge_list, nodes_visited = create_edge_list(graph)
+
+    return convert_to_graph(edge_list)
 
 
 print(question3(G1))
